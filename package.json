@@ -2,7 +2,8 @@
   "name": "xyaml-support",
   "displayName": "XYAML Support",
   "description": "支持一种XML+YAML混合格式",
-  "version": "0.0.1",
+  "icon": "images/icon.jpeg",
+  "version": "0.0.2",
   "publisher": "Simamiemie",
   "repository": {
     "type": "git",
