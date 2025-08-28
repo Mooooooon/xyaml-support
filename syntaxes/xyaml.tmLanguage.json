@@ -1,0 +1,25 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "XYAML",
+  "scopeName": "source.xyaml",
+  "patterns": [
+    {
+      "name": "meta.tag.xyaml.xml",
+      "match": "(</?)(xyaml)(>)",
+      "captures": {
+        "1": {
+          "name": "punctuation.definition.tag.begin.xml"
+        },
+        "2": {
+          "name": "entity.name.tag.xml"
+        },
+        "3": {
+          "name": "punctuation.definition.tag.end.xml"
+        }
+      }
+    },
+    {
+      "include": "source.yaml"
+    }
+  ]
+}

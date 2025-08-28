@@ -1,0 +1,25 @@
+{
+  "name": "xyaml-support",
+  "displayName": "XYAML Support",
+  "description": "支持一种XML+YAML混合格式",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.103.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "xyaml",
+      "aliases": ["XYAML", "xyaml"],
+      "extensions": [".xyaml"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "xyaml",
+      "scopeName": "source.xyaml",
+      "path": "./syntaxes/xyaml.tmLanguage.json"
+    }]
+  }
+}
