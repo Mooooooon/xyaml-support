@@ -3,6 +3,11 @@
   "displayName": "XYAML Support",
   "description": "支持一种XML+YAML混合格式",
   "version": "0.0.1",
+  "publisher": "Simamiemie",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Mooooooon/xyaml-support.git"
+  },
   "engines": {
     "vscode": "^1.103.0"
   },
