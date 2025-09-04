@@ -102,12 +102,12 @@ class XYAMLFormatter {
     }
     calculateIndentation(lines) {
         let xmlDepth = 0;
+        let currentXmlBaseIndent = 0; // 跟踪当前XML标签的基础缩进
         for (let i = 0; i < lines.length; i++) {
             const line = lines[i];
             switch (line.lineType) {
                 case 'empty':
                 case 'comment':
-                    // 保持XML层级的缩进
                     line.indentLevel = xmlDepth;
                     break;
                 case 'xml-close':
@@ -117,17 +117,50 @@ class XYAMLFormatter {
                 case 'xml-open':
                     line.indentLevel = xmlDepth;
                     xmlDepth += 1;
+                    // 找到第一个YAML行来确定基础缩进
+                    currentXmlBaseIndent = this.findYamlBaseIndent(lines, i + 1);
                     break;
                 case 'xml-self-closing':
                     line.indentLevel = xmlDepth;
                     break;
                 case 'yaml':
-                    // 简化的YAML缩进计算：基于原始缩进 + XML深度
-                    const yamlIndentLevel = Math.floor(line.originalIndentLevel / 2);
-                    line.indentLevel = xmlDepth + yamlIndentLevel;
+                    // 计算相对于基础缩进的YAML层级
+                    const relativeYamlIndent = this.calculateRelativeYamlIndent(line.originalIndentLevel, currentXmlBaseIndent);
+                    line.indentLevel = xmlDepth + relativeYamlIndent;
                     break;
             }
         }
+    }
+    findYamlBaseIndent(lines, startIndex) {
+        // 找到XML标签内第一个顶级YAML行的缩进，用作基础缩进
+        for (let i = startIndex; i < lines.length; i++) {
+            const line = lines[i];
+            if (line.lineType === 'yaml' && line.originalIndentLevel >= 0) {
+                return line.originalIndentLevel;
+            }
+            // 遇到XML标签则停止搜索
+            if (line.lineType.startsWith('xml-')) {
+                break;
+            }
+        }
+        return 0; // 默认基础缩进为0
+    }
+    calculateRelativeYamlIndent(currentIndent, baseIndent) {
+        // 计算相对于基础缩进的YAML层级
+        if (currentIndent <= baseIndent) {
+            return 0; // 顶级YAML内容
+        }
+        // 计算相对缩进层级，每2个空格为一层
+        const relativeIndent = currentIndent - baseIndent;
+        return Math.ceil(relativeIndent / 2);
+    }
+    normalizeYamlIndent(originalIndent) {
+        // 简化的YAML缩进规范化
+        if (originalIndent === 0) {
+            return 0; // 顶级保持0
+        }
+        // 其他情况规范化为2的倍数，最小为1级（2个空格）
+        return Math.ceil(originalIndent / 2);
     }
     formatLine(line, options) {
         if (line.lineType === 'empty') {
