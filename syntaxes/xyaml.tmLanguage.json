@@ -4,8 +4,8 @@
   "scopeName": "source.xyaml",
   "patterns": [
     {
-      "name": "meta.tag.xyaml.xml",
-      "match": "(</?)(xyaml)(>)",
+      "name": "meta.tag.xml",
+      "match": "(</?)(\\w+)(>)",
       "captures": {
         "1": {
           "name": "punctuation.definition.tag.begin.xml"
@@ -15,6 +15,24 @@
         },
         "3": {
           "name": "punctuation.definition.tag.end.xml"
+        }
+      }
+    },
+    {
+      "name": "meta.mapping.key.chinese.yaml",
+      "match": "^(\\s*)([\u4e00-\u9fff\\w\\s]+)([：:])(\\s*)",
+      "captures": {
+        "1": {
+          "name": "punctuation.whitespace.yaml"
+        },
+        "2": {
+          "name": "entity.name.tag.yaml"
+        },
+        "3": {
+          "name": "punctuation.separator.key-value.yaml"
+        },
+        "4": {
+          "name": "punctuation.whitespace.yaml"
         }
       }
     },
