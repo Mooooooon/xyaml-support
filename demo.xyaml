@@ -1,168 +1,336 @@
 <xyaml version="1.0" encoding="utf-8">
-# 这个YAML文件是一个演示片段
+# XYAML 格式演示文档
+# 这是一个展示 XYAML 语法特性的示例文件
+# XYAML = XML + YAML，结合了两种格式的优势
 
-<character_information character="菲兰">
-角色信息：
-  姓名： 菲兰
-  职业： 法师
-  等级： 45
+# ===== XML标签与属性演示 =====
+
+<character_information character="菲兰" class="法师">
+  基本信息：
+    姓名：菲兰
+    职业：法师
+    等级：45
+    经验值：12580
+  
   属性：
-    力量： 12
-    敏捷： 18
-    智力： 25
+    力量：12
+    敏捷：18
+    智力：25
+    生命值：280
+    法力值：450
+  
+  装备：
+    武器：法杖
+    护甲：魔法长袍
+    饰品：智慧之戒
 </character_information>
 
-<config type="database" env="production">
-配置项：
-  host: "production-db.example.com"
-  port: 5432
-</config>
+<database_config type="production" env="main">
+  连接设置：
+    主机地址："production-db.example.com"
+    端口：5432
+    数据库名：myapp
+    用户名：admin
+    超时时间：30
+  
+  连接池：
+    最大连接数：100
+    最小连接数：5
+    空闲超时：300
+</database_config>
 
-# ===== XML嵌套测试 =====
-<section name="游戏数据">
+# ===== XML嵌套结构演示 =====
+
+<game_data version="2.1">
   <characters>
-    <character id="1" name="主角">
-      等级： 50
-      职业： 勇者
+    <character id="1" name="主角" level="50">
+      基础属性：
+        等级：50
+        职业：勇者
+        经验：999999
+      
+      技能：
+        - 圣光斩
+        - 治愈术
+        - 防御提升
     </character>
-    <character id="2" name="法师">
-      等级： 45
-      职业： 法师
+    
+    <character id="2" name="法师" level="45">
+      基础属性：
+        等级：45
+        职业：法师
+        经验：756432
+      
+      技能：
+        - 火球术
+        - 冰箭
+        - 传送术
     </character>
   </characters>
   
-  <items category="武器">
-    <item type="sword">
-      名称： 传说之剑
-      攻击力： 100
-    </item>
+  <items category="装备">
+    <weapons>
+      <item type="sword" rarity="legendary">
+        基本信息：
+          名称：传说之剑
+          攻击力：100
+          耐久度：999
+        
+        特殊属性：
+          暴击率：+15%
+          攻击速度：+10%
+          元素伤害：圣光
+      </item>
+      
+      <item type="staff" rarity="epic">
+        基本信息：
+          名称：智者法杖
+          魔法攻击：85
+          法力加成：+50
+        
+        技能：
+          - 法力恢复
+          - 咒语强化
+      </item>
+    </weapons>
+    
+    <armor>
+      <item type="shield" rarity="rare">
+        基本信息：
+          名称：圣光护盾
+          防御力：80
+          格挡率：25%
+        
+        套装效果：圣光守护
+      </item>
+    </armor>
   </items>
-</section>
+  
+  <settings>
+    <graphics quality="ultra">
+      显示设置：
+        分辨率：1920x1080
+        帧率：144
+        垂直同步：开启
+      
+      画质选项：
+        抗锯齿：MSAA x8
+        阴影质量：极高
+        贴图质量：最高
+    </graphics>
+    
+    <audio>
+      音频设置：
+        主音量：80
+        音效音量：75
+        背景音乐：85
+        语音音量：90
+      
+      高级选项：
+        3D音效：开启
+        环绕声：7.1
+        音频质量：无损
+    </audio>
+  </settings>
+</game_data>
 
-# ===== 基本数据类型 =====
+# ===== YAML基本数据类型 =====
 
-# 字符串（普通）
-title: "我的应用配置"
+应用配置：
+  # 字符串类型
+  应用名称："XYAML演示程序"
+  版本："1.2.3"
+  
+  # 多行字符串（保留换行）
+  描述：|
+    这是一个演示XYAML格式的示例程序。
+    它展示了XML标签与YAML数据的完美结合。
+    支持复杂的嵌套结构和中文键名。
+  
+  # 多行字符串（折叠换行）
+  欢迎信息：>
+    欢迎使用XYAML格式！
+    这种格式结合了XML的结构化标签
+    和YAML的简洁数据表示。
+  
+  # 数值类型
+  端口：8080
+  超时时间：30.5
+  最大重试次数：3
+  
+  # 布尔值
+  启用调试：true
+  自动更新：false
+  
+  # 空值
+  最后更新者：null
+  
+  # 日期时间
+  创建时间：2023-10-27T10:30:00Z
 
-# 字符串（多行，保留换行）
-description: |
-  这是一个关于如何配置应用程序的示例文件。
-  它可以包含各种设置，从API密钥到用户界面主题。
+# ===== 列表和数组 =====
 
-# 字符串（多行，折叠换行，空格作为分隔符）
-motd: >
-  欢迎使用本系统，
-  祝您本日工作愉快。
+功能列表：
+  - 用户认证与授权
+  - 数据管理与存储
+  - 报告生成与导出
+  - 第三方服务集成
+  - 实时消息推送
 
-# 整数
-version: 1
+服务配置：
+  - 名称：用户服务
+    端口：3001
+    实例数：2
+    健康检查：/health
+  - 名称：数据服务  
+    端口：3002
+    实例数：3
+    健康检查：/status
+  - 名称：通知服务
+    端口：3003
+    实例数：1
+    健康检查：/ping
 
-# 浮点数
-pi_value: 3.14159
+# ===== 复杂数据结构 =====
 
-# 布尔值（true/false/on/off/yes/no）
-enabled: true
-debug_mode: false
+数据库配置：
+  主数据库：
+    类型：postgresql
+    主机：primary-db.example.com
+    端口：5432
+    用户名：dbuser
+    数据库名：maindb
+    
+  只读副本：
+    类型：postgresql  
+    主机：readonly-db.example.com
+    端口：5432
+    用户名：readonly
+    数据库名：maindb
 
-# 空值（null）
-last_updated_by: null
+API密钥：
+  第三方服务：
+    谷歌地图：
+      密钥：AIzaSyBvOkBo0QoMgE_gqYGV5dK4JC9xW8sT2eA
+      配额限制：10000
+    支付网关：
+      公钥：pk_test_51234567890abcdef
+      私钥：sk_test_09876543210fedcba
+      回调地址：https://example.com/callback
 
-# 日期时间（ISO 8601格式）
-created_at: 2023-10-27T10:30:00Z
+用户列表：
+  - 编号：1
+    姓名：张三
+    邮箱：zhangsan@example.com
+    状态：活跃
+    权限：
+      - 用户管理
+      - 数据查看
+    最后登录：2023-10-25T14:30:00Z
+    
+  - 编号：2
+    姓名：李四  
+    邮箱：lisi@example.com
+    状态：暂停
+    权限：
+      - 数据查看
+      - 报告生成
+    最后登录：2023-10-20T09:15:00Z
+    
+  - 编号：3
+    姓名：王五
+    邮箱：wangwu@example.com  
+    状态：活跃
+    权限：[管理员, 超级用户]  # 行内数组格式
+    最后登录：2023-10-26T16:45:00Z
 
-# ===== 列表 (Sequences) =====
+# ===== YAML锚点与别名 =====
 
-# 字符串列表
-features:
-  - 用户认证
-  - 数据管理
-  - 导出报告
-  - 第三方集成
+默认用户权限：&default_permissions
+  读取权限：true
+  写入权限：false
+  删除权限：false
+  管理权限：false
 
-# 混合类型列表
-settings:
-  - name: Database Host
-    value: localhost
-  - name: Port
-    value: 5432
-  - name: Max Connections
-    value: 100
-  - enabled: true
+# 使用别名引用
+访客用户：
+  姓名：访客
+  权限：*default_permissions
 
-# ===== 字典/映射 (Mappings) =====
+# 合并并覆盖
+管理员用户：
+  姓名：管理员
+  权限：
+    <<: *default_permissions  # 合并默认权限
+    写入权限：true           # 覆盖特定权限
+    删除权限：true
+    管理权限：true
 
-# 简单的键值对
-database:
-  type: postgresql
-  host: db.example.com
-  port: 5432
-  username: admin
+# ===== YAML标签类型转换 =====
 
-# 嵌套字典
-api_keys:
-  google:
-    maps: abcd123xyz
-    translate: efgh456uvw
-  stripe: sk_test_your_secret
+数据类型演示：
+  # 强制转换为整数
+  十六进制值：!!int "0x42"
+  二进制值：!!int "0b1010"
+  
+  # 强制转换为字符串  
+  数字字符串：!!str "123"
+  布尔字符串：!!str "true"
+  
+  # 强制转换为浮点数
+  科学计数法：!!float "1.5e+2"
 
-# 列表中的字典 (即对象数组)
-users:
-  - id: 1
-    name: Alice Johnson
-    email: alice@example.com
-    active: true
-  - id: 2
-    name: Bob Williams
-    email: bob@example.com
-    active: false
-    roles:
-      - editor
-      - viewer
-  - id: 3
-    name: Charlie Brown
-    email: charlie@example.com
-    active: true
-    roles: [admin, user] # 也可以使用流式语法定义列表
+# ===== 中文键名全面支持 =====
 
-# ===== 锚点与别名 (Anchoring & Aliases) =====
+个人信息：
+  基本资料：
+    姓名："赵六"
+    年龄：28
+    职业：软件工程师
+    居住地：北京市海淀区
+    
+  联系方式：
+    手机号码："13812345678"  
+    电子邮箱："zhaoliu@example.com"
+    微信号："zhaoliu_dev"
+    
+  工作经历：
+    - 公司名称：科技创新公司
+      职位：高级工程师
+      入职时间：2020-03-01
+      工作内容：
+        - 后端系统架构设计
+        - 数据库优化与维护  
+        - 技术团队管理
+        
+    - 公司名称：互联网公司
+      职位：软件工程师
+      入职时间：2018-07-01
+      离职时间：2020-02-28
+      工作内容：
+        - Web应用开发
+        - API接口设计
+        - 代码审查与重构
 
-# 定义一个可复用的块
-default_user_permissions: &default_perms
-  can_read: true
-  can_write: false
-  can_delete: false
+系统配置：
+  服务器信息：
+    主机名称：web-server-01
+    操作系统：Ubuntu 22.04 LTS
+    内存大小：16GB
+    处理器：Intel Xeon E5-2686 v4
+    
+  网络设置：
+    IP地址：192.168.1.100
+    子网掩码：255.255.255.0
+    默认网关：192.168.1.1
+    DNS服务器：
+      - 8.8.8.8
+      - 8.8.4.4
+      
+  监控配置：
+    CPU使用率警告：80%
+    内存使用率警告：85%
+    磁盘使用率警告：90%
+    网络延迟警告：100ms
 
-# 使用别名引用预定义的块
-guest_user:
-  name: Guest
-  permissions: *default_perms # 引用 default_perms
-
-admin_user:
-  name: Admin
-  permissions:
-    <<: *default_perms # 合并 default_perms 中的所有键值对
-    can_write: true # 并在合并后覆盖 can_write
-    can_delete: true
-
-# ===== 标签 (Tags) (较少用，但了解一下) =====
-# 表示该字符串应被解析为十六进制数
-hex_value: !!int "0x42"
-
-# 表示该字符串应被解析为字符串而不是布尔值
-price_tag: !!str "yes"
-
-# ===== 中文键名支持测试 =====
-人物： "张三"
-姓名： "李四"
-年龄： 25
-职业： 程序员
-爱好：
-  - 编程
-  - 阅读
-  - 音乐
-
-配置信息：
-  数据库类型： mysql
-  端口号： 3306
-  用户名： root
 </xyaml>
