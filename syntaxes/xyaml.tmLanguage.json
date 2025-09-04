@@ -4,19 +4,7 @@
   "scopeName": "source.xyaml",
   "patterns": [
     {
-      "name": "meta.tag.xml",
-      "match": "(</?)(\\w+)(>)",
-      "captures": {
-        "1": {
-          "name": "punctuation.definition.tag.begin.xml"
-        },
-        "2": {
-          "name": "entity.name.tag.xml"
-        },
-        "3": {
-          "name": "punctuation.definition.tag.end.xml"
-        }
-      }
+      "include": "#xml-element"
     },
     {
       "name": "meta.mapping.key.chinese.yaml",
@@ -39,5 +27,111 @@
     {
       "include": "source.yaml"
     }
-  ]
+  ],
+  "repository": {
+    "xml-element": {
+      "patterns": [
+        {
+          "name": "meta.tag.xml",
+          "begin": "(<)(\\w+)",
+          "end": "(</)(\\2)(>)",
+          "beginCaptures": {
+            "1": {
+              "name": "punctuation.definition.tag.begin.xml"
+            },
+            "2": {
+              "name": "entity.name.tag.xml"
+            }
+          },
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.definition.tag.begin.xml"
+            },
+            "2": {
+              "name": "entity.name.tag.xml"
+            },
+            "3": {
+              "name": "punctuation.definition.tag.end.xml"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#xml-attributes"
+            },
+            {
+              "name": "punctuation.definition.tag.end.xml",
+              "match": ">"
+            },
+            {
+              "include": "#xml-element"
+            },
+            {
+              "name": "meta.mapping.key.chinese.yaml",
+              "match": "^(\\s*)([\u4e00-\u9fff\\w\\s]+)([：:])(\\s*)",
+              "captures": {
+                "1": {
+                  "name": "punctuation.whitespace.yaml"
+                },
+                "2": {
+                  "name": "entity.name.tag.yaml"
+                },
+                "3": {
+                  "name": "punctuation.separator.key-value.yaml"
+                },
+                "4": {
+                  "name": "punctuation.whitespace.yaml"
+                }
+              }
+            },
+            {
+              "include": "source.yaml"
+            }
+          ]
+        },
+        {
+          "name": "meta.tag.xml.self-closing",
+          "match": "(<)(\\w+)([^>]*)(/>)",
+          "captures": {
+            "1": {
+              "name": "punctuation.definition.tag.begin.xml"
+            },
+            "2": {
+              "name": "entity.name.tag.xml"
+            },
+            "3": {
+              "patterns": [
+                {
+                  "include": "#xml-attributes"
+                }
+              ]
+            },
+            "4": {
+              "name": "punctuation.definition.tag.end.xml"
+            }
+          }
+        }
+      ]
+    },
+    "xml-attributes": {
+      "name": "meta.attribute.xml",
+      "match": "\\s+(\\w+)(=)([\"'])([^\"']*)([\"'])",
+      "captures": {
+        "1": {
+          "name": "entity.other.attribute-name.xml"
+        },
+        "2": {
+          "name": "punctuation.separator.key-value.xml"
+        },
+        "3": {
+          "name": "punctuation.definition.string.begin.xml"
+        },
+        "4": {
+          "name": "string.quoted.xml"
+        },
+        "5": {
+          "name": "punctuation.definition.string.end.xml"
+        }
+      }
+    }
+  }
 }

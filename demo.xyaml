@@ -1,5 +1,43 @@
-<xyaml>
+<xyaml version="1.0" encoding="utf-8">
 # 这个YAML文件是一个演示片段
+
+<character_information character="菲兰">
+角色信息：
+  姓名： 菲兰
+  职业： 法师
+  等级： 45
+  属性：
+    力量： 12
+    敏捷： 18
+    智力： 25
+</character_information>
+
+<config type="database" env="production">
+配置项：
+  host: "production-db.example.com"
+  port: 5432
+</config>
+
+# ===== XML嵌套测试 =====
+<section name="游戏数据">
+  <characters>
+    <character id="1" name="主角">
+      等级： 50
+      职业： 勇者
+    </character>
+    <character id="2" name="法师">
+      等级： 45
+      职业： 法师
+    </character>
+  </characters>
+  
+  <items category="武器">
+    <item type="sword">
+      名称： 传说之剑
+      攻击力： 100
+    </item>
+  </items>
+</section>
 
 # ===== 基本数据类型 =====
 
