@@ -3,14 +3,14 @@
   "displayName": "XYAML Support",
   "description": "支持一种XML+YAML混合格式",
   "icon": "images/icon.jpeg",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "publisher": "Simamiemie",
   "repository": {
     "type": "git",
     "url": "https://github.com/Mooooooon/xyaml-support.git"
   },
   "engines": {
-    "vscode": "^1.103.0"
+    "vscode": "^1.83.0"
   },
   "categories": [
     "Programming Languages",
@@ -24,7 +24,7 @@
     "watch": "tsc -watch -p ./"
   },
   "devDependencies": {
-    "@types/vscode": "^1.103.0",
+    "@types/vscode": "^1.83.0",
     "@types/node": "20.x",
     "typescript": "^5.4.5"
   },

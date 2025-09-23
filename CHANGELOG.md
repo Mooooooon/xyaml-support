@@ -4,6 +4,13 @@ All notable changes to the "xyaml-support" extension will be documented in this 
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.3.5] - 2025-09-23
+
+### Changed
+- 下调 `engines.vscode` 至 `^1.83.0`，提升与 Cursor 等 VS Code 分支的兼容性
+- 移除显式 `activationEvents` 声明（VS Code 会依据 `contributes.languages` 自动生成触发）
+- 将 `@types/vscode` 对齐至与引擎匹配的 `^1.83.0`
+
 ## [0.3.4] - 2025-09-04
 
 ### Fixed
