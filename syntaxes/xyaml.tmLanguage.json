@@ -4,11 +4,219 @@
   "scopeName": "source.xyaml",
   "patterns": [
     {
+      "include": "#yaml-frontmatter"
+    },
+    {
+      "include": "#ejs-tags"
+    },
+    {
       "include": "#xml-element"
     },
     {
+      "include": "#placeholders"
+    },
+    {
+      "include": "#yaml-list-item"
+    },
+    {
+      "include": "#chinese-key"
+    },
+    {
+      "include": "source.yaml"
+    }
+  ],
+  "repository": {
+    "yaml-frontmatter": {
+      "name": "meta.separator.yaml",
+      "match": "^---\\s*$",
+      "captures": {
+        "0": {
+          "name": "punctuation.definition.tag.yaml"
+        }
+      }
+    },
+    "placeholders": {
+      "name": "constant.other.placeholder.xyaml",
+      "match": "(\\{\\{)([^}]+)(\\}\\})",
+      "captures": {
+        "1": {
+          "name": "punctuation.definition.placeholder.begin.xyaml"
+        },
+        "2": {
+          "name": "variable.other.placeholder.xyaml"
+        },
+        "3": {
+          "name": "punctuation.definition.placeholder.end.xyaml"
+        }
+      }
+    },
+    "ejs-tags": {
+      "patterns": [
+        {
+          "name": "meta.embedded.block.ejs",
+          "begin": "(<%)(_)?",
+          "end": "(_)?(%>)",
+          "beginCaptures": {
+            "1": {
+              "name": "punctuation.definition.template.begin.ejs"
+            },
+            "2": {
+              "name": "punctuation.whitespace.control.ejs"
+            }
+          },
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.whitespace.control.ejs"
+            },
+            "2": {
+              "name": "punctuation.definition.template.end.ejs"
+            }
+          },
+          "patterns": [
+            {
+              "include": "source.js"
+            }
+          ]
+        },
+        {
+          "name": "meta.embedded.line.ejs.output",
+          "begin": "(<%)(=|-)",
+          "end": "(%>)",
+          "beginCaptures": {
+            "1": {
+              "name": "punctuation.definition.template.begin.ejs"
+            },
+            "2": {
+              "name": "punctuation.definition.template.output.ejs"
+            }
+          },
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.definition.template.end.ejs"
+            }
+          },
+          "patterns": [
+            {
+              "include": "source.js"
+            }
+          ]
+        },
+        {
+          "name": "comment.block.ejs",
+          "begin": "(<%)(#)",
+          "end": "(%>)",
+          "beginCaptures": {
+            "1": {
+              "name": "punctuation.definition.template.begin.ejs"
+            },
+            "2": {
+              "name": "punctuation.definition.comment.ejs"
+            }
+          },
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.definition.template.end.ejs"
+            }
+          }
+        }
+      ]
+    },
+    "json-content": {
+      "patterns": [
+        {
+          "name": "meta.structure.dictionary.json.xyaml",
+          "begin": "\\{",
+          "end": "\\}",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.dictionary.begin.json.xyaml"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.dictionary.end.json.xyaml"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#json-content"
+            },
+            {
+              "include": "#placeholders"
+            },
+            {
+              "name": "string.quoted.double.json.xyaml",
+              "begin": "\"",
+              "end": "\"",
+              "patterns": [
+                {
+                  "include": "#placeholders"
+                }
+              ]
+            },
+            {
+              "name": "punctuation.separator.dictionary.key-value.json.xyaml",
+              "match": ":"
+            },
+            {
+              "name": "punctuation.separator.dictionary.pair.json.xyaml",
+              "match": ","
+            }
+          ]
+        },
+        {
+          "name": "meta.structure.array.json.xyaml",
+          "begin": "\\[",
+          "end": "\\]",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.array.begin.json.xyaml"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.array.end.json.xyaml"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#json-content"
+            },
+            {
+              "include": "#placeholders"
+            }
+          ]
+        }
+      ]
+    },
+    "yaml-list-item": {
+      "name": "meta.list-item.yaml",
+      "begin": "^(\\s*)(-)(\\s+)",
+      "end": "$",
+      "beginCaptures": {
+        "1": {
+          "name": "punctuation.whitespace.yaml"
+        },
+        "2": {
+          "name": "punctuation.definition.list.begin.yaml"
+        },
+        "3": {
+          "name": "punctuation.whitespace.yaml"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#placeholders"
+        },
+        {
+          "name": "string.unquoted.yaml",
+          "match": ".+"
+        }
+      ]
+    },
+    "chinese-key": {
       "name": "meta.mapping.key.chinese.yaml",
-      "match": "^(\\s*)([\u4e00-\u9fff\\w\\s]+)([：:])(\\s*)",
+      "match": "^(\\s*)([\u4e00-\u9fff][\u4e00-\u9fff\\w\\s]*)([：:])(\\s*)",
       "captures": {
         "1": {
           "name": "punctuation.whitespace.yaml"
@@ -24,11 +232,6 @@
         }
       }
     },
-    {
-      "include": "source.yaml"
-    }
-  ],
-  "repository": {
     "xml-element": {
       "patterns": [
         {
@@ -63,25 +266,19 @@
               "match": ">"
             },
             {
+              "include": "#ejs-tags"
+            },
+            {
               "include": "#xml-element"
             },
             {
-              "name": "meta.mapping.key.chinese.yaml",
-              "match": "^(\\s*)([\u4e00-\u9fff\\w\\s]+)([：:])(\\s*)",
-              "captures": {
-                "1": {
-                  "name": "punctuation.whitespace.yaml"
-                },
-                "2": {
-                  "name": "entity.name.tag.yaml"
-                },
-                "3": {
-                  "name": "punctuation.separator.key-value.yaml"
-                },
-                "4": {
-                  "name": "punctuation.whitespace.yaml"
-                }
-              }
+              "include": "#placeholders"
+            },
+            {
+              "include": "#yaml-list-item"
+            },
+            {
+              "include": "#chinese-key"
             },
             {
               "include": "source.yaml"
@@ -132,6 +329,36 @@
           "name": "punctuation.definition.string.end.xml"
         }
       }
+    }
+  },
+  "injections": {
+    "L:string.unquoted.block.yaml, L:string.unquoted.plain.yaml, L:string.quoted.single.yaml, L:string.quoted.double.yaml": {
+      "patterns": [
+        {
+          "include": "#ejs-tags"
+        },
+        {
+          "include": "#json-content"
+        },
+        {
+          "include": "#xml-element"
+        },
+        {
+          "name": "constant.other.placeholder.xyaml",
+          "match": "(\\{\\{)([^}]+)(\\}\\})",
+          "captures": {
+            "1": {
+              "name": "punctuation.definition.placeholder.begin.xyaml"
+            },
+            "2": {
+              "name": "variable.other.placeholder.xyaml"
+            },
+            "3": {
+              "name": "punctuation.definition.placeholder.end.xyaml"
+            }
+          }
+        }
+      ]
     }
   }
 }
